@@ -40,6 +40,10 @@ import "./introspection/ERC165.sol";
 import "./utils/Strings.sol";
 import "./access/Ownable.sol";
 
+interface FntnInterface {
+  function ownerOf(uint256 tokenId) external view returns (address owner);
+}
+
 contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
   using SafeMath for uint8;
   using SafeMath for uint256;
@@ -57,6 +61,10 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
   // Next tokenId eligible to be minted
   // First 175 are reserved for shard-hodlers
   uint internal nextTokenId = 176;
+
+  //FNTN Contract
+  address public fntnAddress = 0x2Fb704d243cFA179fFaD4D87AcB1D36bcf243a44;
+  FntnInterface fntnContract = FntnInterface(fntnAddress);
 
   /*
    * Set up the basics
@@ -86,11 +94,11 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
   }
 
   /*
-   * Main function for the NFT sale
+   * Main function for the sale
    *
-   * Prerequisites
-   *  - Not at max supply
-   *  - Sale has started
+   * prerequisites
+   *  - not at max supply
+   *  - sale has started
    */
   function mint() external payable nonReentrant {
     require(nextTokenId <= MAX_TOKENS, "We are at max supply");
@@ -98,6 +106,41 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
     require(msg.value == SHARD_PRICE, "Ether value required is 0.069");
 
     _safeMint(msg.sender, nextTokenId++);
+  }
+
+  /*
+   * Buy the token reserved for your shard
+   *
+   * Prerequisites:
+   *  - not at max supply
+   *  - sale has started
+   *  - your wallet owns the shard ID in question
+   *
+   * Example input: To mint for FNTN // 137, you would input 137
+   */
+  function mintWithShard(uint shardId) external payable nonReentrant {
+    require(hasSaleStarted, "Sale hasn't started");
+    require(msg.value == SHARD_PRICE, "Ether value required is 0.069");
+
+    // Get FNTN tokenId from shard number
+    uint fntnId = shardIdToTokenId(shardId);
+
+    // Ensure sender owns shard in question
+    require(fntnContract.ownerOf(fntnId) == msg.sender, "Not the owner of this shard");
+
+    // Mint if token doesn't exist
+    require(!_exists(shardId), "This token has already been minted");
+    _safeMint(msg.sender, shardId);
+  }
+
+  /*
+   * The tokenIds are not contiguous in the original contract
+   * Given the id of a shard (the numner in the title, eg "FNTN // 62")
+   * this outputs the actual tokenId in the original shared contract.
+   */
+  function shardIdToTokenId(uint shardId) public view returns (uint) {
+    // Hard-coded for now
+    return 1407;
   }
 
   /**
