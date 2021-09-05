@@ -1,7 +1,7 @@
 {
-  "name": "zlobe-contracts",
+  "name": "ai-shards-contracts",
   "version": "1.0.0",
-  "description": "NFT Factory Contracts",
+  "description": "AI Shards",
   "main": "index.js",
   "author": "iain nash",
   "license": "GPL-3.0",
