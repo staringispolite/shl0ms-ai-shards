@@ -34,10 +34,10 @@ pragma solidity ^0.8.6;
 
 // OpenZeppelin
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/interfaces/IERC2981.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./IERC2981.sol";
 
 interface FntnInterface {
     function ownerOf(uint256 tokenId) external view returns (address owner);
@@ -202,7 +202,7 @@ contract ThisShardDoesNotExist is ERC721Enumerable, Ownable, ReentrancyGuard, IE
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721Enumerable)
+        override(ERC721Enumerable, IERC165)
         returns (bool)
     {
         return
