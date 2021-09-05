@@ -144,28 +144,32 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
     // Check up front for a valid id. Saves gas on failure, but also on valid
     // shardIds we can save some gas by not needing SafeMath function calls
     require(shardId >= 1 && shardId <= 175, "Enter a shardId from 1 to 175");
-  
+
+    uint tokenId = 0;
+
     if (shardId == 1) {
-      return 1203;
+      tokenId = 1203;
     } else if (shardId == 2) {
-      return 1420;
+      tokenId = 1420;
     } else if (shardId >= 3 && shardId <= 5) {
-      return 1229 + shardId;
+      tokenId = 1229 + shardId;
     } else if (shardId >= 8 && shardId <= 36) {
-      return 1230 + shardId;
+      tokenId = 1230 + shardId;
     } else if (shardId >= 37 && shardId <= 58) {
-      return 1231 + shardId;
+      tokenId = 1231 + shardId;
     } else if (shardId >= 59 && shardId <= 62) {
-      return 1231 + shardId; // TODO: Isn't this one just contiguous then?
+      tokenId = 1231 + shardId; // TODO: Isn't this one just contiguous then?
     } else if (shardId >= 63 && shardId <= 75) {
-      return 1242 + shardId;
+      tokenId = 1242 + shardId;
     } else if (shardId >= 76 && shardId <= 146) {
-      return 1344 + shardId;
+      tokenId = 1344 + shardId;
     } else if (shardId >= 165 && shardId <= 175) {
-      return 1129 + shardId;
+      tokenId = 1129 + shardId;
     } else if (shardId == 175) {
-      return 175;
+      tokenId = 175;
     }
+
+    return tokenId;
   }
 
   /**
