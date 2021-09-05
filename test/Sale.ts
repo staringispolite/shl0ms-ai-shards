@@ -5,7 +5,7 @@ import { ethers, deployments } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { ThisShardDoesNotExist } from "../typechain";
 
-describe("GlobeSale", () => {
+describe("Sale", () => {
   let signer: SignerWithAddress;
   let signerAddress: string;
   let nftInstance: ThisShardDoesNotExist;
