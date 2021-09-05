@@ -1,7 +1,7 @@
 {
-  "name": "cryptopoops",
+  "name": "This Shard Does Not Exist",
   "version": "0.0.1",
-  "description": "CryptoPoops test repo",
+  "description": "AI Shards",
   "main": "index.js",
   "scripts": {
     "ganache-cli": "ganache-cli -d -p 7545 --gasLimit=10000000",
@@ -9,14 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/staringispolite/cryptopoops.git"
+    "url": "git+https://github.com/staringispolite/shl0ms-ai-shards.git"
   },
   "author": "@staringispolite",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/staringispolite/cryptopoops/issues"
-  },
-  "homepage": "https://github.com/staringispolite/cryptopoops#readme",
+  "homepage": "https://github.com/staringispolite/shl0ms-ai-shards",
   "dependencies": {
     "@0x/subproviders": "^2.1.4",
     "@openzeppelin/test-helpers": "^0.5.10",
