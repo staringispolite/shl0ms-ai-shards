@@ -5,7 +5,7 @@ module.exports = async ({ getNamedAccounts, deployments }: any) => {
   await deploy("ThisShardDoesNotExist", {
     from: deployer,
     args: [
-      "https://test.com/test",
+      "https://nftapi.com/metadata/",
     ],
     log: true,
   });
