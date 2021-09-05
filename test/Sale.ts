@@ -50,7 +50,7 @@ describe("Sale", () => {
       const originalBalance = await signer2.getBalance();
       await nftInstance.connect(signer2).withdrawAll();
       expect(
-        (await originalBalance).sub(await signer2.getBalance())
+        (await originalBalance).sub(await signer2.getBalance()).toNumber()
       ).to.be.greaterThan(0);
     });
 
@@ -63,7 +63,7 @@ describe("Sale", () => {
       expect(newOwner).to.equal(await signer2.getAddress());
 
       expect(nftInstance.withdrawAll()).to.revertedWith(
-        "Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner."
+        "Ownable: caller is not the owner"
       );
     });
 
@@ -89,13 +89,13 @@ describe("Sale", () => {
     it("should not allow users to buy before sale", async () => {
       const [_, signer2] = await ethers.getSigners();
       await expect(nftInstance.connect(signer2).mint()).to.be.revertedWith(
-        "Sale hasn't started -- Reason given: Sale hasn't started."
+        "Sale hasn't started"
       );
     });
 
     it("should not allow owner to buy before sale", async () => {
       await expect(nftInstance.mint()).to.be.revertedWith(
-        "Sale hasn't started -- Reason given: Sale hasn't started."
+        "Sale hasn't started"
       );
     });
 
@@ -107,61 +107,53 @@ describe("Sale", () => {
 
     it("should not allow users to start sale", async () => {
       const [_, signer2] = await ethers.getSigners();
-      await expect(nftInstance.connect(signer2).startSale()).to.be.revertedWith('Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner.')
+      await expect(nftInstance.connect(signer2).startSale()).to.be.revertedWith(
+        "Ownable: caller is not the owner"
+      );
     });
 
-    /*
     it("should allow users to buy after sale starts", async () => {
-      const instance = await contractClass.new("https://nftapi.com/metadata/");
+      const [_, signer2] = await ethers.getSigners();
 
       // Set up sale
-      const startSaleResult = await instance.startSale({ from: owner });
-      expect(startSaleResult.receipt.status).to.equal(true);
+      await nftInstance.startSale();
 
       // Buy
-      const buyResult = await instance.mint({
-        from: bob,
-        value: web3.utils.toWei("0.069", "ether"),
-      });
-      expect(buyResult.receipt.status).to.equal(true);
+      expect(
+        await nftInstance.connect(signer2).mint({
+          value: ethers.utils.parseEther("0.069"),
+        })
+      ).to.emit(nftInstance, "Transfer");
 
       // Confirm buy
-      const numPoops = await instance.totalSupply({ from: bob });
-      expect(numPoops.toNumber()).to.equal(1);
+      expect(await nftInstance.totalSupply()).to.be.equal(1);
     });
 
     it("should correctly create tokenURIs", async () => {
-      const instance = await contractClass.new("https://nftapi.com/metadata/");
+      const [_, __, signer3] = await ethers.getSigners();
 
       // Set up sale
-      const startSaleResult = await instance.startSale({ from: owner });
-      expect(startSaleResult.receipt.status).to.equal(true);
+      await nftInstance.startSale();
 
       // Buy
-      const buyResult = await instance.mint({
-        from: bob,
-        value: web3.utils.toWei("0.069", "ether"),
+      await nftInstance.connect(signer3).mint({
+        value: ethers.utils.parseEther("0.069"),
       });
-      expect(buyResult.receipt.status).to.equal(true);
 
-      const tokenURI = await instance.tokenURI(176);
+      const tokenURI = await nftInstance.tokenURI(176);
       console.log("Spot check token URI:");
       console.log(tokenURI);
     });
 
     it("should require the correct price", async () => {
-      const instance = await contractClass.new("https://nftapi.com/metadata/");
-
+      const [_, signer2] = await ethers.getSigners();
       // Set up the sale
-      const startSaleResult = await instance.startSale({ from: owner });
-      expect(startSaleResult.receipt.status).to.equal(true);
+      await nftInstance.startSale();
 
       // Buy with no ETH
-      await expectRevert(
-        instance.mint({ from: alice }),
+      await expect(nftInstance.connect(signer2).mint()).to.be.revertedWith(
         "Ether value required is 0.069"
       );
     });
-    */
   });
 });
