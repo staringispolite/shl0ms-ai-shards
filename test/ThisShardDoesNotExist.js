@@ -17,14 +17,14 @@ contract("ThisShardDoesNotExist", async (accounts) => {
   let [owner, alice, bob] = accounts;
 
   // Only for use when grabbing selectors or interface IDs before deploy
-  xit("should print its selector hashes", async () => {
+  it("should print its selector hashes", async () => {
    const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     console.log('see the main contract ::calculateSelector for which this is:');
     console.log(await instance.calculateSelector());
   });
 
-  xit("should allow owner to transfer ownership", async () => {
+  it("should allow owner to transfer ownership", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     const txn = await instance.transferOwnership(alice, {from: owner});
@@ -36,7 +36,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     expect(newOwner).to.equal(alice);
   });
 
-  xit("should allow new owner to withdraw", async () => {
+  it("should allow new owner to withdraw", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     const txn = await instance.transferOwnership(alice, {from: owner});
@@ -51,7 +51,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     expect(withdrawResult.receipt.status).to.equal(true);
   });
 
-  xit("should not allow old owner to withdraw", async () => {
+  it("should not allow old owner to withdraw", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     const txn = await instance.transferOwnership(alice, {from: owner});
@@ -66,7 +66,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
       "Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner.");
   });
 
-  xit("should report that it supports the ERC721 interfaces", async () => {
+  it("should report that it supports the ERC721 interfaces", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     const _INTERFACE_ID_ERC721 = "0x80ac58cd";
@@ -81,33 +81,33 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     expect(supportResponse).to.equal(true);
   });
 
-  xit("should not allow users to buy before sale", async () => {
+  it("should not allow users to buy before sale", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
     await expectRevert(instance.mint({from: bob}), 
       "Sale hasn't started -- Reason given: Sale hasn't started.");
   });
 
-  xit("should not allow owner to buy before sale", async () => {
+  it("should not allow owner to buy before sale", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
     await expectRevert(instance.mint({from: owner}),
       "Sale hasn't started -- Reason given: Sale hasn't started.");
   });
 
-  xit("should allow owner to start sale", async () => {
+  it("should allow owner to start sale", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     const result = await instance.startSale({from: owner});
     expect(result.receipt.status).to.equal(true);
   });
 
-  xit("should not allow users to start sale", async () => {
+  it("should not allow users to start sale", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     await expectRevert(instance.startSale({from: bob}),
       "Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner.");
   });
 
-  xit("should allow users to buy after sale starts", async () => {
+  it("should allow users to buy after sale starts", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     // Set up sale
@@ -124,7 +124,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     expect(numPoops.toNumber()).to.equal(1);
   });
 
-  xit("should correctly create tokenURIs", async () => {
+  it("should correctly create tokenURIs", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     // Set up sale
@@ -141,7 +141,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     console.log(tokenURI);
   });
 
-  xit("should require the correct price", async () => {
+  it("should require the correct price", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     // Set up the sale
