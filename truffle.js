@@ -35,6 +35,7 @@ module.exports = {
         return new HDWalletProvider(MNEMONIC, rinkebyNodeUrl);
       },
       gas: 5000000,
+      gasPrice: 100000000000,
       network_id: "4",
     },
     live: {
@@ -59,7 +60,7 @@ module.exports = {
       settings: {
         optimizer: {
           enabled: true,
-          runs: 15000
+          runs: 100
         }
       }
     },
