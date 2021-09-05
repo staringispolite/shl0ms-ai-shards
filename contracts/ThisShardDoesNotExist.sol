@@ -185,10 +185,11 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
   function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
     require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
 
-    string memory base = baseURI();
-    string memory fragment = Strings.strConcat(Strings.uint2str(tokenId), "/index.json");
-    
-    return Strings.strConcat(base, fragment);
+    return string(abi.encodePacked(
+			baseURI(),
+			Strings.toString(tokenId),
+			"/index.json"
+		));
   }
     
 

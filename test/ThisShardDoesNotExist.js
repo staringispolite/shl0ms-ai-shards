@@ -134,7 +134,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
   });
 
   it("should correctly create tokenURIs", async () => {
-    const instance = await contractClass.new("https://nftapi.com/metadata/");
+    const instance = await contractClass.new("https://some-thing.fission.app/json/");
 
     // Set up sale
     const startSaleResult = await instance.startSale({from: owner});
