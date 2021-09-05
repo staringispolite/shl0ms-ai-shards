@@ -1,5 +1,4 @@
 const ThisShardDoesNotExist = artifacts.require("ThisShardDoesNotExist");
-const TestableThisShardDoesNotExist = artifacts.require("TestableThisShardDoesNotExist");
 
 // If you want to hardcode what deploys, comment out process.env.X and use
 // true/false;
@@ -14,6 +13,4 @@ module.exports = async (deployer, network, addresses) => {
   }
 
   await deployer.deploy(ThisShardDoesNotExist, "https://ugly-big-oval-hippogriff.fission.app/json/", {gas: 5000000});
-  // Uncomment locally to run unit tests on private functions made public by this proxy contract
-  //await deployer.deploy(TestableStonerCats, "https://fierce-tall-thick-king.fission.app/json/", {gas: 5000000});
 };
