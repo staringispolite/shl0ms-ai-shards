@@ -59,6 +59,10 @@ contract ThisShardDoesNotExist is ERC721Enumerable, Ownable, ReentrancyGuard, IE
     // First 175 are reserved for shard-hodlers
     uint256 internal nextTokenId = 176;
 
+    // Next tokenId eligible to be minted
+    // First 175 are reserved for shard-hodlers
+    uint8 internal royaltyBPS = 100;
+
     //FNTN Contract
     FntnInterface fntnContract =
         FntnInterface(0x2Fb704d243cFA179fFaD4D87AcB1D36bcf243a44);
@@ -83,9 +87,12 @@ contract ThisShardDoesNotExist is ERC721Enumerable, Ownable, ReentrancyGuard, IE
     ) {
         return (
             owner(),
-            // 100 = 10% royalty on resale to owner
-            (_salePrice * 100) / 10_000
+            (_salePrice * royaltyBPS) / 10_000
         );
+    }
+
+    function updateRoyaltyBPS(uint8 newRoyaltyBPS) public onlyOwner {
+        royaltyBPS = newRoyaltyBPS;
     }
 
     /*
