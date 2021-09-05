@@ -92,6 +92,7 @@ contract ThisShardDoesNotExist is ERC721Enumerable, Ownable, ReentrancyGuard, IE
     }
 
     function updateRoyaltyBPS(uint8 newRoyaltyBPS) public onlyOwner {
+        require(royaltyBPS <= 300, "No greater 30%");
         royaltyBPS = newRoyaltyBPS;
     }
 
