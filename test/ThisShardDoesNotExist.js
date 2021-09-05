@@ -16,8 +16,17 @@ const utils = require('./helpers/util');
 contract("ThisShardDoesNotExist", async (accounts) => {
   let [owner, alice, bob] = accounts;
 
+  it("should print all the shardId=>fntnId mappings", async () => {
+   const instance = await contractClass.new("https://nftapi.com/metadata/");
+
+    console.log('ShardId to FNTN Token Id mappings:');
+    for (let i = 1; i <= 175; i++) {
+      console.log(i + " => " + await instance.shardIdToTokenId(i));
+    }
+  });
+
   // Only for use when grabbing selectors or interface IDs before deploy
-  it("should print its selector hashes", async () => {
+  xit("should print its selector hashes", async () => {
    const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     console.log('see the main contract ::calculateSelector for which this is:');
