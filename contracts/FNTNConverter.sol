@@ -16,25 +16,33 @@ contract FNTNConverter {
     uint tokenId = 0;
 
     if (shardId == 1) {
-      tokenId = 1203;
+      tokenId = 1230;
     } else if (shardId == 2) {
       tokenId = 1420;
-    } else if (shardId >= 3 && shardId <= 5) {
+    } else if (shardId > 2 && shardId < 8) {
       tokenId = 1229 + shardId;
-    } else if (shardId >= 8 && shardId <= 36) {
+    } else if (shardId > 7 && shardId < 37) {
       tokenId = 1230 + shardId;
-    } else if (shardId >= 37 && shardId <= 58) {
+    } else if (shardId > 36 && shardId < 63) {
       tokenId = 1231 + shardId;
-    } else if (shardId >= 59 && shardId <= 62) {
-      tokenId = 1231 + shardId; // TODO: Isn't this one just contiguous then?
-    } else if (shardId >= 63 && shardId <= 75) {
+    } else if (shardId > 62 && shardId < 76) {
       tokenId = 1242 + shardId;
-    } else if (shardId >= 76 && shardId <= 146) {
-      tokenId = 1344 + shardId;
-    } else if (shardId >= 165 && shardId <= 175) {
+    } else if (shardId > 75 && shardId < 109) {
+      tokenId = 1244 + shardId;
+    } else if (shardId > 108 && shardId < 165) {
+      tokenId = 1245 + shardId;
+    } else if (shardId > 164 && shardId < 168) {
       tokenId = 1129 + shardId;
+    } else if (shardId == 168) {
+      tokenId = 1300;
+    } else if (shardId == 169) {
+      tokenId = 1298;
+    } else if (shardId == 170) {
+      tokenId = 1299;
+    } else if (shardId > 170 && shardId < 175) {
+      tokenId = 1130 + shardId;
     } else if (shardId == 175) {
-      tokenId = 175;
+      tokenId = 1229;
     }
 
     return tokenId;
@@ -44,7 +52,6 @@ contract FNTNConverter {
     // Check up front for a valid id. Saves gas on failure, but also on valid
     // shardIds we can save some gas by not needing SafeMath function calls
     require(tokenId >= 1229 && tokenId <= 1420, "Enter a tokenId from 1229 to 1420");
-
     uint shardId = 0;
 
     if (tokenId == 1229) {
@@ -52,13 +59,13 @@ contract FNTNConverter {
     } else if (tokenId == 1230) {
       shardId = 1;
     } else if(tokenId >= 1232 && tokenId <= 1236) {
-      shardId = tokenId - 1232 + 3;
+      shardId = tokenId - 1229;
     } else if(tokenId >= 1238 && tokenId <= 1266) {
-      shardId = tokenId - 1238 + 8;
+      shardId = tokenId - 1230;
     } else if(tokenId >= 1268 && tokenId <= 1293) {
-      shardId = tokenId - 1268 + 37;
+      shardId = tokenId - 1231;
     } else if(tokenId >= 1294 && tokenId <= 1296) {
-      shardId = tokenId - 1294 + 165;
+      shardId = tokenId - 1129;
     } else if(tokenId == 1298) {
       shardId = 169;
     } else if(tokenId == 1299) {
@@ -66,13 +73,13 @@ contract FNTNConverter {
     } else if(tokenId == 1300) {
        shardId = 168;
     } else if(tokenId >= 1301 && tokenId <= 1304) {
-      shardId = tokenId - 1301 + 171;
+      shardId = tokenId - 1130;
     } else if(tokenId >= 1305 && tokenId <= 1317) {
-      shardId = tokenId - 1305 + 63;
+      shardId = tokenId - 1242;
     } else if(tokenId >= 1320 && tokenId <= 1352) {
-      shardId = tokenId - 1320 + 76;
+      shardId = tokenId - 1244;
     } else if(tokenId >= 1354 && tokenId <= 1409) {
-      shardId = tokenId - 1354 + 109;
+      shardId = tokenId - 1245;
     } else if(tokenId == 1420) {
       shardId = 2;
     }
