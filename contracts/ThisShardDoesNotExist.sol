@@ -80,7 +80,7 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FN
 
   // Update it need be, but no ability to rug
 	function updateRoyaltyBPS(uint8 newRoyaltyBPS) public onlyOwner {
-		require(royaltyBPS <= 300, "No greater 30%");
+		require(royaltyBPS <= 300, "No greater than 30%");
 		royaltyBPS = newRoyaltyBPS;
 	}
 

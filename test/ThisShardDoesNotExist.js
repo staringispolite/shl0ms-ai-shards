@@ -527,7 +527,6 @@ contract("ThisShardDoesNotExist", async (accounts) => {
       "Ether value required is 0.069");
   });
 
-  // TODO: Make sure normals can't
   it("should allow owner to set a new contract address", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
@@ -536,6 +535,13 @@ contract("ThisShardDoesNotExist", async (accounts) => {
 
     const newContract = await instance.fntnAddress();
     expect(newContract).to.equal(alice);
+  });
+
+  it("should not allow non-owners to set a new contract address", async () => {
+    const instance = await contractClass.new("https://nftapi.com/metadata/");
+
+    await expectRevert(instance.setFntnContract(alice, {from: bob}),
+      "Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner.");
   });
 
   // Paused by default, since the test takes 10mins to sell out supply
