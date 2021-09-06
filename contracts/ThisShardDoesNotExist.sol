@@ -38,13 +38,14 @@ import "./access/Ownable.sol";
 import "./security/ReentrancyGuard.sol";
 import "./introspection/ERC165.sol";
 import "./utils/Strings.sol";
+import "./utils/IERC2981.sol";
 import "./access/Ownable.sol";
 
 interface FntnInterface {
   function ownerOf(uint256 tokenId) external view returns (address owner);
 }
 
-contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
+contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard {
   using SafeMath for uint8;
   using SafeMath for uint256;
   using Strings for string;
@@ -65,6 +66,21 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
   //FNTN Contract
   address public fntnAddress = 0x2Fb704d243cFA179fFaD4D87AcB1D36bcf243a44;
   FntnInterface fntnContract = FntnInterface(fntnAddress);
+
+	// Royalty, in basis points,
+	uint8 internal royaltyBPS = 100;
+
+  // ERC2891 royalty function, for ERC2891-compatible platforms. See IERC2891
+	function royaltyInfo(uint256, uint256 _salePrice) override external view returns (
+      address receiver, uint256 royaltyAmount) {
+		return (owner(), (_salePrice * royaltyBPS) / 10_000);
+	}
+
+  // Update it need be, but no ability to rug
+	function updateRoyaltyBPS(uint8 newRoyaltyBPS) public onlyOwner {
+		require(royaltyBPS <= 300, "No greater 30%");
+		royaltyBPS = newRoyaltyBPS;
+	}
 
   /*
    * Set up the basics
@@ -140,7 +156,7 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
    * Given the id of a shard (the numner in the title, eg "FNTN // 62")
    * this outputs the actual tokenId in the original shared contract.
    */
-  function shardIdToTokenId(uint shardId) public view returns (uint) {
+  function shardIdToTokenId(uint shardId) public pure returns (uint) {
     // Check up front for a valid id. Saves gas on failure, but also on valid
     // shardIds we can save some gas by not needing SafeMath function calls
     require(shardId >= 1 && shardId <= 175, "Enter a shardId from 1 to 175");
@@ -175,7 +191,7 @@ contract ThisShardDoesNotExist is ERC721, Ownable, ReentrancyGuard {
   /**
    * @dev See {IERC165-supportsInterface}.
    */
-  function supportsInterface(bytes4 interfaceId) public view override(ERC165) returns (bool) {
+  function supportsInterface(bytes4 interfaceId) public view override(IERC165, ERC165) returns (bool) {
     return ERC165.supportsInterface(interfaceId);
   }
 
