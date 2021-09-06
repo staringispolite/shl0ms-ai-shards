@@ -191,7 +191,7 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard {
   /**
    * @dev See {IERC165-supportsInterface}.
    */
-  function supportsInterface(bytes4 interfaceId) public view override(IERC165, ERC165) returns (bool) {
+  function supportsInterface(bytes4 interfaceId) public view override(ERC165) returns (bool) {
     return ERC165.supportsInterface(interfaceId);
   }
 

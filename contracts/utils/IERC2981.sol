@@ -2,12 +2,10 @@
 
 pragma solidity ^0.7.0;
 
-import "../introspection/IERC165.sol";
-
 /**
  * @dev Interface for the NFT Royalty Standard
  */
-interface IERC2981 is IERC165 {
+interface IERC2981 {
     /**
      * @dev Called with the sale price to determine how much royalty is owed and to whom.
      * @param tokenId - the NFT asset queried for royalty information
