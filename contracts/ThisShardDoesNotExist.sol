@@ -41,11 +41,13 @@ import "./utils/Strings.sol";
 import "./utils/IERC2981.sol";
 import "./access/Ownable.sol";
 
+import "./FNTNConverter.sol";
+
 interface FntnInterface {
   function ownerOf(uint256 tokenId) external view returns (address owner);
 }
 
-contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard {
+contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FNTNConverter {
   using SafeMath for uint8;
   using SafeMath for uint256;
   using Strings for string;
@@ -67,7 +69,7 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard {
   address public fntnAddress = 0x2Fb704d243cFA179fFaD4D87AcB1D36bcf243a44;
   FntnInterface fntnContract = FntnInterface(fntnAddress);
 
-	// Royalty, in basis points,
+	// Royalty, in basis points
 	uint8 internal royaltyBPS = 100;
 
   // ERC2891 royalty function, for ERC2891-compatible platforms. See IERC2891
@@ -132,61 +134,33 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard {
    *  - sale has started
    *  - your wallet owns the shard ID in question
    *
-   * Example input: To mint for FNTN // 137, you would input 137
+   * Example input: To mint for FNTN // 137, you would not input
+   * 137, but the tokenId in its shared contract. If you don't know this
+   * ID, your best bet is the website. But it will also be after the final '/'
+   * in the URL of your shard on OpenSea, eg https://opensea.io/0xetcetcetc/shardId
    */
-  function mintWithShard(uint shardId) external payable nonReentrant {
+  function mintWithShard(uint tokenId) external payable nonReentrant {
     require(hasSaleStarted, "Sale hasn't started");
     require(msg.value == SHARD_PRICE, "Ether value required is 0.069");
     // Duplicate this here to potentially save people gas
-    require(shardId >= 1 && shardId <= 175, "Enter a shardId from 1 to 175");
-
-    // Get FNTN tokenId from shard number
-    uint fntnId = shardIdToTokenId(shardId);
+    require(tokenId >= 1229 && tokenId <= 1420, "Enter a sharId from 1229 to 1420");
 
     // Ensure sender owns shard in question
-    require(fntnContract.ownerOf(fntnId) == msg.sender, "Not the owner of this shard");
+    require(fntnContract.ownerOf(tokenId) == msg.sender, "Not the owner of this shard");
+
+    // Convert to the shard ID (the number in "FNTN // __")
+    uint shardId = tokenIdToShardId(tokenId);
 
     // Mint if token doesn't exist
     require(!_exists(shardId), "This token has already been minted");
     _safeMint(msg.sender, shardId);
   }
 
-  /*
-   * The tokenIds are not contiguous in the original contract
-   * Given the id of a shard (the numner in the title, eg "FNTN // 62")
-   * this outputs the actual tokenId in the original shared contract.
-   */
-  function shardIdToTokenId(uint shardId) public pure returns (uint) {
-    // Check up front for a valid id. Saves gas on failure, but also on valid
-    // shardIds we can save some gas by not needing SafeMath function calls
-    require(shardId >= 1 && shardId <= 175, "Enter a shardId from 1 to 175");
-
-    uint tokenId = 0;
-
-    if (shardId == 1) {
-      tokenId = 1203;
-    } else if (shardId == 2) {
-      tokenId = 1420;
-    } else if (shardId >= 3 && shardId <= 5) {
-      tokenId = 1229 + shardId;
-    } else if (shardId >= 8 && shardId <= 36) {
-      tokenId = 1230 + shardId;
-    } else if (shardId >= 37 && shardId <= 58) {
-      tokenId = 1231 + shardId;
-    } else if (shardId >= 59 && shardId <= 62) {
-      tokenId = 1231 + shardId; // TODO: Isn't this one just contiguous then?
-    } else if (shardId >= 63 && shardId <= 75) {
-      tokenId = 1242 + shardId;
-    } else if (shardId >= 76 && shardId <= 146) {
-      tokenId = 1344 + shardId;
-    } else if (shardId >= 165 && shardId <= 175) {
-      tokenId = 1129 + shardId;
-    } else if (shardId == 175) {
-      tokenId = 175;
-    }
-
-    return tokenId;
-  }
+  // TODO: selector for 2981
+	// Handy while calculating XOR of all function selectors
+	function calculateSelector() public pure returns (bytes4) {
+		return type(IERC2981).interfaceId;
+	}
 
   /**
    * @dev See {IERC165-supportsInterface}.
@@ -210,6 +184,11 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard {
     
 
   // Admin functions
+  // TODO: Add a setter for contract
+  function setFntnContract(address contractAddress) public onlyOwner {
+
+  }
+
   function setBaseURI(string memory baseURI) public onlyOwner {
     _setBaseURI(baseURI);
   }
