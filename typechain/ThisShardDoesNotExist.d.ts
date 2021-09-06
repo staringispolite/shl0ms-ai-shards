@@ -53,6 +53,7 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     "totalSupply()": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "updateRoyaltyBPS(uint8)": FunctionFragment;
     "withdrawAll()": FunctionFragment;
   };
 
@@ -153,6 +154,10 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "updateRoyaltyBPS",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "withdrawAll",
     values?: undefined
   ): string;
@@ -239,6 +244,10 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateRoyaltyBPS",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -602,6 +611,16 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
+    updateRoyaltyBPS(
+      newRoyaltyBPS: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "updateRoyaltyBPS(uint8)"(
+      newRoyaltyBPS: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
     withdrawAll(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
     "withdrawAll()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
@@ -855,6 +874,16 @@ export class ThisShardDoesNotExist extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
+  updateRoyaltyBPS(
+    newRoyaltyBPS: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "updateRoyaltyBPS(uint8)"(
+    newRoyaltyBPS: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
   withdrawAll(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
   "withdrawAll()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
@@ -1102,6 +1131,16 @@ export class ThisShardDoesNotExist extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateRoyaltyBPS(
+      newRoyaltyBPS: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "updateRoyaltyBPS(uint8)"(
+      newRoyaltyBPS: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1377,6 +1416,16 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
+    updateRoyaltyBPS(
+      newRoyaltyBPS: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "updateRoyaltyBPS(uint8)"(
+      newRoyaltyBPS: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
     withdrawAll(overrides?: PayableOverrides): Promise<BigNumber>;
 
     "withdrawAll()"(overrides?: PayableOverrides): Promise<BigNumber>;
@@ -1633,6 +1682,16 @@ export class ThisShardDoesNotExist extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    updateRoyaltyBPS(
+      newRoyaltyBPS: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "updateRoyaltyBPS(uint8)"(
+      newRoyaltyBPS: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
