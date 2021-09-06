@@ -58,13 +58,13 @@ contract FNTNConverter {
       shardId = 175;
     } else if (tokenId == 1230) {
       shardId = 1;
-    } else if(tokenId >= 1232 && tokenId <= 1236) {
+    } else if(tokenId > 1231 && tokenId < 1237) {
       shardId = tokenId - 1229;
-    } else if(tokenId >= 1238 && tokenId <= 1266) {
+    } else if(tokenId > 1237 && tokenId < 1267) {
       shardId = tokenId - 1230;
-    } else if(tokenId >= 1268 && tokenId <= 1293) {
+    } else if(tokenId > 1267 && tokenId < 1294) {
       shardId = tokenId - 1231;
-    } else if(tokenId >= 1294 && tokenId <= 1296) {
+    } else if(tokenId > 1293 && tokenId < 1297) {
       shardId = tokenId - 1129;
     } else if(tokenId == 1298) {
       shardId = 169;
@@ -72,13 +72,13 @@ contract FNTNConverter {
        shardId = 170;
     } else if(tokenId == 1300) {
        shardId = 168;
-    } else if(tokenId >= 1301 && tokenId <= 1304) {
+    } else if(tokenId > 1300 && tokenId < 1305) {
       shardId = tokenId - 1130;
-    } else if(tokenId >= 1305 && tokenId <= 1317) {
+    } else if(tokenId > 1304 && tokenId < 1318) {
       shardId = tokenId - 1242;
-    } else if(tokenId >= 1320 && tokenId <= 1352) {
+    } else if(tokenId > 1319 && tokenId < 1353) {
       shardId = tokenId - 1244;
-    } else if(tokenId >= 1354 && tokenId <= 1409) {
+    } else if(tokenId > 1353 && tokenId < 1410) {
       shardId = tokenId - 1245;
     } else if(tokenId == 1420) {
       shardId = 2;

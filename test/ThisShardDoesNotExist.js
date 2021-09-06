@@ -373,30 +373,26 @@ contract("ThisShardDoesNotExist", async (accounts) => {
   let [owner, alice, bob] = accounts;
 
   it("should print all the shardId=>fntnId mappings", async () => {
-   const instance = await contractClass.new("https://nftapi.com/metadata/");
+    const instance = await contractClass.new("https://nftapi.com/metadata/");
 
-    console.log('ShardId to FNTN Token Id mappings:');
     for (let id in shardToFNTN) {
-      console.log(id + " => " + await instance.shardIdToTokenId(id));
-      console.log("expected ");
-      console.log(id + " => " + shardToFNTN[id] + "\n");
+      let tokenId = await instance.shardIdToTokenId(id);
+      expect(tokenId.toString()).to.equal(shardToFNTN[id].toString());
     }
   });
 
   it("should print the same mappings if starting from FNTN contract ids", async () => {
-   const instance = await contractClass.new("https://nftapi.com/metadata/");
+    const instance = await contractClass.new("https://nftapi.com/metadata/");
 
-    console.log('FNTN Token Id to ShardId mappings:');
     for (let id in FNTNToShard) {
-      console.log(await instance.tokenIdToShardId(id) + " => " + id);
-      console.log("expected ");
-      console.log(FNTNToShard[id] + " => " + id + "\n");
+      let shardId = await instance.tokenIdToShardId(id);
+      expect(shardId.toString()).to.equal(FNTNToShard[id].toString());
     }
   });
 
   // Only for use when grabbing selectors or interface IDs before deploy
   xit("should print its selector hashes", async () => {
-   const instance = await contractClass.new("https://nftapi.com/metadata/");
+    const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     console.log('see the main contract ::calculateSelector for which this is:');
     console.log(await instance.calculateSelector());
