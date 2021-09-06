@@ -184,9 +184,8 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FN
     
 
   // Admin functions
-  // TODO: Add a setter for contract
   function setFntnContract(address contractAddress) public onlyOwner {
-
+    fntnAddress = contractAddress;
   }
 
   function setBaseURI(string memory baseURI) public onlyOwner {

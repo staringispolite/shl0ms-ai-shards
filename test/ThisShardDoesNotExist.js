@@ -372,7 +372,7 @@ const utils = require('./helpers/util');
 contract("ThisShardDoesNotExist", async (accounts) => {
   let [owner, alice, bob] = accounts;
 
-  it("should print all the shardId=>fntnId mappings", async () => {
+  it("Should correctly convert from shard number => FNTN contract tokenId", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     for (let id in shardToFNTN) {
@@ -381,7 +381,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     }
   });
 
-  it("should print the same mappings if starting from FNTN contract ids", async () => {
+  it("Should correctly convert from FNTN contract tokenIds to shard number", async () => {
     const instance = await contractClass.new("https://nftapi.com/metadata/");
 
     for (let id in FNTNToShard) {
@@ -525,6 +525,17 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     // Buy with no ETH
     await expectRevert(instance.mint({from: alice}),
       "Ether value required is 0.069");
+  });
+
+  // TODO: Make sure normals can't
+  it("should allow owner to set a new contract address", async () => {
+    const instance = await contractClass.new("https://nftapi.com/metadata/");
+
+    const txn = await instance.setFntnContract(alice, {from: owner});
+    expect(txn.receipt.status).to.equal(true);
+
+    const newContract = await instance.fntnAddress();
+    expect(newContract).to.equal(alice);
   });
 
   // Paused by default, since the test takes 10mins to sell out supply
