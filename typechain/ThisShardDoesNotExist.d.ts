@@ -29,8 +29,8 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     "balanceOf(address)": FunctionFragment;
     "baseURI()": FunctionFragment;
     "calculateSelector()": FunctionFragment;
-    "fntnAddress()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
+    "getFntnContract()": FunctionFragment;
     "getNextPublicTokenId()": FunctionFragment;
     "hasSaleStarted()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
@@ -81,12 +81,12 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "fntnAddress",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getApproved",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getFntnContract",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getNextPublicTokenId",
@@ -197,11 +197,11 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "fntnAddress",
+    functionFragment: "getApproved",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getApproved",
+    functionFragment: "getFntnContract",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -379,14 +379,6 @@ export class ThisShardDoesNotExist extends Contract {
       0: string;
     }>;
 
-    fntnAddress(overrides?: CallOverrides): Promise<{
-      0: string;
-    }>;
-
-    "fntnAddress()"(overrides?: CallOverrides): Promise<{
-      0: string;
-    }>;
-
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -398,6 +390,14 @@ export class ThisShardDoesNotExist extends Contract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<{
+      0: string;
+    }>;
+
+    getFntnContract(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
+    "getFntnContract()"(overrides?: CallOverrides): Promise<{
       0: string;
     }>;
 
@@ -748,10 +748,6 @@ export class ThisShardDoesNotExist extends Contract {
 
   "calculateSelector()"(overrides?: CallOverrides): Promise<string>;
 
-  fntnAddress(overrides?: CallOverrides): Promise<string>;
-
-  "fntnAddress()"(overrides?: CallOverrides): Promise<string>;
-
   getApproved(
     tokenId: BigNumberish,
     overrides?: CallOverrides
@@ -761,6 +757,10 @@ export class ThisShardDoesNotExist extends Contract {
     tokenId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  getFntnContract(overrides?: CallOverrides): Promise<string>;
+
+  "getFntnContract()"(overrides?: CallOverrides): Promise<string>;
 
   getNextPublicTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1043,10 +1043,6 @@ export class ThisShardDoesNotExist extends Contract {
 
     "calculateSelector()"(overrides?: CallOverrides): Promise<string>;
 
-    fntnAddress(overrides?: CallOverrides): Promise<string>;
-
-    "fntnAddress()"(overrides?: CallOverrides): Promise<string>;
-
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -1056,6 +1052,10 @@ export class ThisShardDoesNotExist extends Contract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    getFntnContract(overrides?: CallOverrides): Promise<string>;
+
+    "getFntnContract()"(overrides?: CallOverrides): Promise<string>;
 
     getNextPublicTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1361,10 +1361,6 @@ export class ThisShardDoesNotExist extends Contract {
 
     "calculateSelector()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    fntnAddress(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "fntnAddress()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -1374,6 +1370,10 @@ export class ThisShardDoesNotExist extends Contract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    getFntnContract(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getFntnContract()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getNextPublicTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1655,10 +1655,6 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    fntnAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "fntnAddress()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -1666,6 +1662,12 @@ export class ThisShardDoesNotExist extends Contract {
 
     "getApproved(uint256)"(
       tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getFntnContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getFntnContract()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
