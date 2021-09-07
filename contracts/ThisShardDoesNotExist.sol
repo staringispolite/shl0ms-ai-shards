@@ -66,8 +66,7 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FN
   uint internal nextTokenId = 176;
 
   //FNTN Contract
-  address public fntnAddress = 0x2Fb704d243cFA179fFaD4D87AcB1D36bcf243a44;
-  FntnInterface fntnContract = FntnInterface(fntnAddress);
+  FntnInterface fntnContract = FntnInterface(0x2Fb704d243cFA179fFaD4D87AcB1D36bcf243a44);
 
 	// Royalty, in basis points
 	uint8 internal royaltyBPS = 100;
@@ -80,7 +79,7 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FN
 
   // Update it need be, but no ability to rug
 	function updateRoyaltyBPS(uint8 newRoyaltyBPS) public onlyOwner {
-		require(royaltyBPS <= 300, "No greater than 30%");
+		require(royaltyBPS <= 300, "No royalty greater than 30%");
 		royaltyBPS = newRoyaltyBPS;
 	}
 
@@ -185,7 +184,11 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FN
 
   // Admin functions
   function setFntnContract(address contractAddress) public onlyOwner {
-    fntnAddress = contractAddress;
+    fntnContract = FntnInterface(contractAddress);
+  }
+
+  function getFntnContract() public view returns(address) {
+    return address(fntnContract);
   }
 
   function setBaseURI(string memory baseURI) public onlyOwner {

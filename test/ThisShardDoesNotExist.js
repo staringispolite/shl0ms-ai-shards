@@ -533,7 +533,7 @@ contract("ThisShardDoesNotExist", async (accounts) => {
     const txn = await instance.setFntnContract(alice, {from: owner});
     expect(txn.receipt.status).to.equal(true);
 
-    const newContract = await instance.fntnAddress();
+    const newContract = await instance.getFntnContract();
     expect(newContract).to.equal(alice);
   });
 
