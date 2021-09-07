@@ -5,7 +5,7 @@ module.exports = async ({ getNamedAccounts, deployments }: any) => {
   await deploy("ThisShardDoesNotExist", {
     from: deployer,
     args: [
-      "https://nftapi.com/metadata/",
+      "https://ugly-big-oval-hippogriff.fission.app/json/",
     ],
     log: true,
   });
