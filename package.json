@@ -1,5 +1,5 @@
 {
-  "name": "This Shard Does Not Exist",
+  "name": "This-Shard-Does-Not-Exist",
   "version": "0.0.1",
   "description": "AI Shards",
   "main": "index.js",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "truffle-plugin-verify": "^0.5.7"
+    "truffle-plugin-stdjsonin": "../truffle-plugin-stdjsonin",
+    "truffle-plugin-verify": "^0.5.14"
   }
 }
