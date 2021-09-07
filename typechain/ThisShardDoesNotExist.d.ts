@@ -27,6 +27,9 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     "SHARD_PRICE()": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
+    "baseURI()": FunctionFragment;
+    "calculateSelector()": FunctionFragment;
+    "fntnAddress()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "getNextPublicTokenId()": FunctionFragment;
     "hasSaleStarted()": FunctionFragment;
@@ -42,11 +45,13 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setBaseURI(string)": FunctionFragment;
+    "setFntnContract(address)": FunctionFragment;
     "shardIdToTokenId(uint256)": FunctionFragment;
     "startSale()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenByIndex(uint256)": FunctionFragment;
+    "tokenIdToShardId(uint256)": FunctionFragment;
     "tokenOfOwnerByIndex(address,uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "tokensOfOwner(address)": FunctionFragment;
@@ -70,6 +75,15 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
+  encodeFunctionData(functionFragment: "baseURI", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "calculateSelector",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fntnAddress",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [BigNumberish]
@@ -116,6 +130,10 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "setBaseURI", values: [string]): string;
   encodeFunctionData(
+    functionFragment: "setFntnContract",
+    values: [string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "shardIdToTokenId",
     values: [BigNumberish]
   ): string;
@@ -127,6 +145,10 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "tokenByIndex",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tokenIdToShardId",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -169,6 +191,15 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "baseURI", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateSelector",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "fntnAddress",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
@@ -212,6 +243,10 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setBaseURI", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "setFntnContract",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "shardIdToTokenId",
     data: BytesLike
   ): Result;
@@ -223,6 +258,10 @@ interface ThisShardDoesNotExistInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "tokenByIndex",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "tokenIdToShardId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -324,6 +363,30 @@ export class ThisShardDoesNotExist extends Contract {
       0: BigNumber;
     }>;
 
+    baseURI(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
+    "baseURI()"(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
+    calculateSelector(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
+    "calculateSelector()"(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
+    fntnAddress(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
+    "fntnAddress()"(overrides?: CallOverrides): Promise<{
+      0: string;
+    }>;
+
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -375,12 +438,12 @@ export class ThisShardDoesNotExist extends Contract {
     "mint()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
     mintWithShard(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>;
 
     "mintWithShard(uint256)"(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>;
 
@@ -472,12 +535,22 @@ export class ThisShardDoesNotExist extends Contract {
     ): Promise<ContractTransaction>;
 
     setBaseURI(
-      _baseURI: string,
+      baseURI: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
     "setBaseURI(string)"(
-      _baseURI: string,
+      baseURI: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    setFntnContract(
+      contractAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>;
+
+    "setFntnContract(address)"(
+      contractAddress: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
@@ -530,6 +603,20 @@ export class ThisShardDoesNotExist extends Contract {
 
     "tokenByIndex(uint256)"(
       index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<{
+      0: BigNumber;
+    }>;
+
+    tokenIdToShardId(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<{
+      0: BigNumber;
+    }>;
+
+    "tokenIdToShardId(uint256)"(
+      tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<{
       0: BigNumber;
@@ -653,6 +740,18 @@ export class ThisShardDoesNotExist extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  baseURI(overrides?: CallOverrides): Promise<string>;
+
+  "baseURI()"(overrides?: CallOverrides): Promise<string>;
+
+  calculateSelector(overrides?: CallOverrides): Promise<string>;
+
+  "calculateSelector()"(overrides?: CallOverrides): Promise<string>;
+
+  fntnAddress(overrides?: CallOverrides): Promise<string>;
+
+  "fntnAddress()"(overrides?: CallOverrides): Promise<string>;
+
   getApproved(
     tokenId: BigNumberish,
     overrides?: CallOverrides
@@ -688,12 +787,12 @@ export class ThisShardDoesNotExist extends Contract {
   "mint()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
 
   mintWithShard(
-    shardId: BigNumberish,
+    tokenId: BigNumberish,
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>;
 
   "mintWithShard(uint256)"(
-    shardId: BigNumberish,
+    tokenId: BigNumberish,
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>;
 
@@ -770,12 +869,22 @@ export class ThisShardDoesNotExist extends Contract {
   ): Promise<ContractTransaction>;
 
   setBaseURI(
-    _baseURI: string,
+    baseURI: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
   "setBaseURI(string)"(
-    _baseURI: string,
+    baseURI: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  setFntnContract(
+    contractAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>;
+
+  "setFntnContract(address)"(
+    contractAddress: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
@@ -814,6 +923,16 @@ export class ThisShardDoesNotExist extends Contract {
 
   "tokenByIndex(uint256)"(
     index: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  tokenIdToShardId(
+    tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "tokenIdToShardId(uint256)"(
+    tokenId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -916,6 +1035,18 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    baseURI(overrides?: CallOverrides): Promise<string>;
+
+    "baseURI()"(overrides?: CallOverrides): Promise<string>;
+
+    calculateSelector(overrides?: CallOverrides): Promise<string>;
+
+    "calculateSelector()"(overrides?: CallOverrides): Promise<string>;
+
+    fntnAddress(overrides?: CallOverrides): Promise<string>;
+
+    "fntnAddress()"(overrides?: CallOverrides): Promise<string>;
+
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -951,12 +1082,12 @@ export class ThisShardDoesNotExist extends Contract {
     "mint()"(overrides?: CallOverrides): Promise<void>;
 
     mintWithShard(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "mintWithShard(uint256)"(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1032,10 +1163,20 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setBaseURI(_baseURI: string, overrides?: CallOverrides): Promise<void>;
+    setBaseURI(baseURI: string, overrides?: CallOverrides): Promise<void>;
 
     "setBaseURI(string)"(
-      _baseURI: string,
+      baseURI: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setFntnContract(
+      contractAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "setFntnContract(address)"(
+      contractAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1074,6 +1215,16 @@ export class ThisShardDoesNotExist extends Contract {
 
     "tokenByIndex(uint256)"(
       index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    tokenIdToShardId(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "tokenIdToShardId(uint256)"(
+      tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1202,6 +1353,18 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    baseURI(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "baseURI()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    calculateSelector(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "calculateSelector()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    fntnAddress(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "fntnAddress()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -1237,12 +1400,12 @@ export class ThisShardDoesNotExist extends Contract {
     "mint()"(overrides?: PayableOverrides): Promise<BigNumber>;
 
     mintWithShard(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<BigNumber>;
 
     "mintWithShard(uint256)"(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<BigNumber>;
 
@@ -1311,10 +1474,20 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    setBaseURI(_baseURI: string, overrides?: Overrides): Promise<BigNumber>;
+    setBaseURI(baseURI: string, overrides?: Overrides): Promise<BigNumber>;
 
     "setBaseURI(string)"(
-      _baseURI: string,
+      baseURI: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    setFntnContract(
+      contractAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>;
+
+    "setFntnContract(address)"(
+      contractAddress: string,
       overrides?: Overrides
     ): Promise<BigNumber>;
 
@@ -1353,6 +1526,16 @@ export class ThisShardDoesNotExist extends Contract {
 
     "tokenByIndex(uint256)"(
       index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    tokenIdToShardId(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "tokenIdToShardId(uint256)"(
+      tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1462,6 +1645,20 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    baseURI(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "baseURI()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    calculateSelector(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "calculateSelector()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    fntnAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "fntnAddress()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -1503,12 +1700,12 @@ export class ThisShardDoesNotExist extends Contract {
     "mint()"(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
 
     mintWithShard(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>;
 
     "mintWithShard(uint256)"(
-      shardId: BigNumberish,
+      tokenId: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1578,12 +1775,22 @@ export class ThisShardDoesNotExist extends Contract {
     ): Promise<PopulatedTransaction>;
 
     setBaseURI(
-      _baseURI: string,
+      baseURI: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
     "setBaseURI(string)"(
-      _baseURI: string,
+      baseURI: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    setFntnContract(
+      contractAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>;
+
+    "setFntnContract(address)"(
+      contractAddress: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
@@ -1622,6 +1829,16 @@ export class ThisShardDoesNotExist extends Contract {
 
     "tokenByIndex(uint256)"(
       index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    tokenIdToShardId(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "tokenIdToShardId(uint256)"(
+      tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

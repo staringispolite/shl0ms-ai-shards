@@ -22,24 +22,15 @@ import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 interface Ierc2981Interface extends ethers.utils.Interface {
   functions: {
     "royaltyInfo(uint256,uint256)": FunctionFragment;
-    "supportsInterface(bytes4)": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "royaltyInfo",
     values: [BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
-  ): string;
 
   decodeFunctionResult(
     functionFragment: "royaltyInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
 
@@ -81,20 +72,6 @@ export class Ierc2981 extends Contract {
       0: string;
       1: BigNumber;
     }>;
-
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean;
-    }>;
-
-    "supportsInterface(bytes4)"(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean;
-    }>;
   };
 
   royaltyInfo(
@@ -119,16 +96,6 @@ export class Ierc2981 extends Contract {
     1: BigNumber;
   }>;
 
-  supportsInterface(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
-  "supportsInterface(bytes4)"(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
   callStatic: {
     royaltyInfo(
       tokenId: BigNumberish,
@@ -151,16 +118,6 @@ export class Ierc2981 extends Contract {
       0: string;
       1: BigNumber;
     }>;
-
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    "supportsInterface(bytes4)"(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
   };
 
   filters: {};
@@ -177,16 +134,6 @@ export class Ierc2981 extends Contract {
       salePrice: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "supportsInterface(bytes4)"(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -199,16 +146,6 @@ export class Ierc2981 extends Contract {
     "royaltyInfo(uint256,uint256)"(
       tokenId: BigNumberish,
       salePrice: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "supportsInterface(bytes4)"(
-      interfaceId: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
