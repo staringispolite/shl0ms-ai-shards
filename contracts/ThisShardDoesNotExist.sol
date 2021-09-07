@@ -207,7 +207,9 @@ contract ThisShardDoesNotExist is IERC2981, ERC721, Ownable, ReentrancyGuard, FN
     hasSaleStarted = false;
   }
 
-  function withdrawAll() public payable onlyOwner {
-    require(payable(msg.sender).send(address(this).balance));
-  }
+	function withdrawAll() external onlyOwner {
+		// This forwards all available gas. Be sure to check the return value!
+		(bool success, bytes memory data) = msg.sender.call{value: address(this).balance}("");
+		require(success, "Transfer failed.");
+	}
 }

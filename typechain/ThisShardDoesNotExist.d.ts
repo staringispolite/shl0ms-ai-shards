@@ -708,9 +708,9 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    withdrawAll(overrides?: PayableOverrides): Promise<ContractTransaction>;
+    withdrawAll(overrides?: Overrides): Promise<ContractTransaction>;
 
-    "withdrawAll()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
+    "withdrawAll()"(overrides?: Overrides): Promise<ContractTransaction>;
   };
 
   MAX_TOKENS(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1003,9 +1003,9 @@ export class ThisShardDoesNotExist extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  withdrawAll(overrides?: PayableOverrides): Promise<ContractTransaction>;
+  withdrawAll(overrides?: Overrides): Promise<ContractTransaction>;
 
-  "withdrawAll()"(overrides?: PayableOverrides): Promise<ContractTransaction>;
+  "withdrawAll()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   callStatic: {
     MAX_TOKENS(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1609,9 +1609,9 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>;
 
-    withdrawAll(overrides?: PayableOverrides): Promise<BigNumber>;
+    withdrawAll(overrides?: Overrides): Promise<BigNumber>;
 
-    "withdrawAll()"(overrides?: PayableOverrides): Promise<BigNumber>;
+    "withdrawAll()"(overrides?: Overrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1914,10 +1914,8 @@ export class ThisShardDoesNotExist extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>;
 
-    withdrawAll(overrides?: PayableOverrides): Promise<PopulatedTransaction>;
+    withdrawAll(overrides?: Overrides): Promise<PopulatedTransaction>;
 
-    "withdrawAll()"(
-      overrides?: PayableOverrides
-    ): Promise<PopulatedTransaction>;
+    "withdrawAll()"(overrides?: Overrides): Promise<PopulatedTransaction>;
   };
 }
